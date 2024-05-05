@@ -43,5 +43,5 @@ mongoose.connection.once('open', () => {
 });
 
 app.get("/", (req, res) => {
-    res.send("Helloo")l
+    res.send("Helloo");
 })
