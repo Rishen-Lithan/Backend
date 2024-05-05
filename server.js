@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const verifyJWT = require('./middlewares/verifyJWT');
 const cookieParser = require('cookie-parser');
+const corsOptions = require('./config/corsOptions')
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3500;
 const connectDB = require('./config/dbConn');
@@ -11,16 +12,17 @@ const connectDB = require('./config/dbConn');
 // Connect backend to the Database
 connectDB();
 
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors());
 
-app.use(cors({
-    origin: 'http://localhost:3000', // Allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
-    allowedHeaders: ['Content-Type', 'Authorization'] // Allow these headers
-}));
+// app.use(cors({
+//     origin: 'http://localhost:3000', // Allow requests from this origin
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
+//     allowedHeaders: ['Content-Type', 'Authorization'] // Allow these headers
+// }));
 
 // Usage of routes
 app.use('/register', require('./routes/registerRoute'));
